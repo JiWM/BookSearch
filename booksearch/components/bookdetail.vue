@@ -1,6 +1,8 @@
 <template>
 <div class="max-w-screen-3xl mx-auto">
-  <div class="flex flex-col md:flex-row m-5 md:m-12 lg:m-16 lg:mt-20">
+  <div class="m-5 md:m-12 lg:m-16">
+    <p class="ml-16 mb-5">&lt 검색 목록으로<p>
+  <div class="flex flex-col md:flex-row">
     <div class="md:flex-shrink-0 mx-auto xl:ml-16">
       <img class="object-scale-down object-center h-full" src="book.jpg">
     </div>
@@ -29,6 +31,7 @@
       </modal></div>
     </div>
     </div>
+  </div>
   </div>
   </div>
 </template>

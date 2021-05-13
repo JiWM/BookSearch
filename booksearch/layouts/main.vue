@@ -1,5 +1,6 @@
 <template>
   <div>
+    <appheader/>
     <Nuxt/>
   </div>
 </template>

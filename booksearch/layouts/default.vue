@@ -1,15 +1,18 @@
 <template>
   <div>
-    <appheader/>
+    <appHeader/>
+    <searchBar/>
     <Nuxt/>
   </div>
 </template>
 <script>
 import appHeader from '../components/appheader'
+import searchBar from '../components/searchbar'
 
 export default{
   components:{
-    appHeader
+    appHeader,
+    searchBar
   }
 }
 </script>
