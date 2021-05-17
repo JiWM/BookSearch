@@ -1,36 +1,44 @@
 export default {
-  // Global page headers: https://go.nuxtjs.dev/config-head
-  head: {
-    title: "booksearch",
-    htmlAttrs: {
-      lang: "en"
+    // Global page headers: https://go.nuxtjs.dev/config-head
+    head: {
+        title: "booksearch",
+        htmlAttrs: {
+            lang: "en"
+        },
+        meta: [
+            { charset: "utf-8" },
+            { name: "viewport", content: "width=device-width, initial-scale=1" },
+            { hid: "description", name: "description", content: "" }
+        ],
+        link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }]
     },
-    meta: [
-      { charset: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { hid: "description", name: "description", content: "" }
+
+    // Global CSS: https://go.nuxtjs.dev/config-css
+    css: [],
+
+    // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
+    plugins: ["~plugins/vue-instantsearch"],
+
+    // Auto import components: https://go.nuxtjs.dev/config-components
+    components: true,
+
+    // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
+    buildModules: [
+        // https://go.nuxtjs.dev/tailwindcss
+        "@nuxtjs/tailwindcss",
+        "@nuxtjs/fontawesome"
     ],
-    link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }]
-  },
 
-  // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [],
+    fontawesome: {
+        icons: {
+            solid: true,
+            brands: true,
+        }
+    },
 
-  // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ["~plugins/vue-instantsearch"],
+    // Modules: https://go.nuxtjs.dev/config-modules
+    modules: [],
 
-  // Auto import components: https://go.nuxtjs.dev/config-components
-  components: true,
-
-  // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  buildModules: [
-    // https://go.nuxtjs.dev/tailwindcss
-    "@nuxtjs/tailwindcss"
-  ],
-
-  // Modules: https://go.nuxtjs.dev/config-modules
-  modules: [],
-
-  // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {}
+    // Build Configuration: https://go.nuxtjs.dev/config-build
+    build: {}
 };

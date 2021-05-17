@@ -1,7 +1,7 @@
 <template>
   <div>
       <bookDetail></bookDetail>
-      <bookList></bookList>
+      <bookList class="bg-gray-200"></bookList>
   </div>
 </template>
 
