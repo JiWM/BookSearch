@@ -1,6 +1,6 @@
 <template>
   <header class="flex border-gray-500 p-3">
-    <div class="flex-1"><h1>NAME</h1></div>
+    <div class="flex-1"><nuxt-link to="/"><h1>NAME</h1></nuxt-link></div>
     <div>login | signup | bookshelf</div>
   </header>
 </template>

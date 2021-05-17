@@ -1,24 +1,20 @@
 <template>
-  <transition name="modal" appear>
-    <div class="modal-mask">
-      <div class="modal-wrapper">
-        <div class="modal-container">
+  <transition name="buymodal" appear>
+    <div class="modal-wrapper">
+      <div class="modal-container">
 
-          <div class="modal-header">
-            <slot name="header">
-              <button class="modal-default-button" @click="$emit('close')">
-                X
-              </button>
-            </slot>
-          </div>
-
-          <div class="modal-body">
-            <slot name="body">
-              default body
-            </slot>
-          </div>
-
+        <div class="modal-header">
+          <button class="modal-default-button" @click="$emit('close')">
+            X
+          </button>
         </div>
+
+        <div class="modal-body">
+          <slot name="body">
+            default body
+          </slot>
+        </div>
+
       </div>
     </div>
   </transition>
@@ -37,9 +33,8 @@ export default {
 }
 
 .modal-container {
-  width: 300px;
   margin: 0px auto;
-  padding: 20px 30px;
+  padding: 10px 15px 5px 15px;
   background-color: #fff;
   border-radius: 2px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
@@ -47,14 +42,14 @@ export default {
   font-family: Helvetica, Arial, sans-serif;
 }
 
-.modal-header h3 {
-  display: inline;
-  margin-top: 0;
+.modal-header {
+  margin: 0;
   color: #42b983;
 }
 
 .modal-body {
   margin: 20px 0;
+  padding: 0 20px;
 }
 
 .modal-default-button {
