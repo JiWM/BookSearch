@@ -1,0 +1,27 @@
+{
+  "name": "booksearch",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.14.0",
+    "core-js": "^3.9.1",
+    "nuxt": "^2.15.3",
+    "vue-innersearch": "^0.0.12",
+    "vue-instantsearch": "^1.7.0",
+    "vue-search-panel": "^1.0.6",
+    "vue-wordcloud": "^1.1.1",
+    "vuewordcloud": "^18.7.12",
+    "vuex-search": "^2.2.5"
+  },
+  "devDependencies": {
+    "@babel/plugin-transform-runtime": "^7.14.2",
+    "@nuxtjs/tailwindcss": "^4.0.1",
+    "postcss": "^8.2.8"
+  }
+}
