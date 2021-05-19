@@ -5,7 +5,9 @@
   >
     <div class="w-2/3 items-center justify-items-stretch text-center">
       <img src="../static/logowhite.svg" class="mx-auto" />
-      <div class="text-4xl text-white font-bold">SOME AWESOME SLOGAN</div>
+      <div class="text-3xl text-white font-bold">
+        LIGHT UP YOUR READING
+      </div>
       <InstantSearch />
       <div class="flex justify-around  text-white">
         <div>{{ keywords[num[0]] }}</div>
@@ -23,7 +25,7 @@
 import Logo from "../components/Logo.vue";
 //import VueSearchPanel from "../components/vue-search-panel.vue";
 import InstantSearch from "../components/vue-instant-search.vue";
-import InnerSearch from "../components/vue-innersearch.vue";
+//import InnerSearch from "../components/vue-innersearch.vue";
 
 var num = new Array();
 
@@ -42,8 +44,8 @@ export default {
   layout: "main",
   components: {
     Logo: Logo,
-    InstantSearch,
-    InnerSearch
+    InstantSearch
+    //InnerSearch
     //VueSearchPanel: VueSearchPanel
   },
   data() {
@@ -74,5 +76,3 @@ export default {
   }
 };
 </script>
-
-VueSearchPanel

@@ -1,29 +1,28 @@
 <template>
   <div>
-    <appHeader/>
-    <searchBar/>
-    <Nuxt/>
+    <appHeader />
+    <searchBar class="w-2/5" />
+    <Nuxt />
   </div>
 </template>
 <script>
-import appHeader from '../components/appheader'
-import searchBar from '../components/searchbar'
+import appHeader from "../components/appheader";
+import searchBar from "../components/searchbar";
 
-export default{
-  components:{
+export default {
+  components: {
     appHeader,
     searchBar
   }
-}
+};
 </script>
 
 <style>
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
 
 #content {
-  margin:25px;
-  font-family:
-    'Noto Sans KR', sans-serif;
+  margin: 25px;
+  font-family: "Noto Sans KR", sans-serif;
   font-size: 16px;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;
@@ -36,13 +35,14 @@ export default{
 *,
 *::before,
 *::after {
-    box-sizing: border-box;
+  box-sizing: border-box;
   margin: 0;
 }
 @font-face {
-    font-family: 'InfinitySans-RegularA1';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/InfinitySans-RegularA1.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
+  font-family: "InfinitySans-RegularA1";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/InfinitySans-RegularA1.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
 }
 </style>
