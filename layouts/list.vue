@@ -1,7 +1,8 @@
 <template>
   <div>
     <appHeader />
-    <InstantSearch id="headerSearch" />
+    <searchBar id="headerSearch" />
+    <!--<InstantSearch id="headerSearch" />-->
     <v-card class="mx-auto overflow-hidden" height="100%" width="100%">
       <v-app-bar color="deep-purple accent-4">
         <v-btn icon @click.stop="drawer = !drawer">
@@ -15,12 +16,31 @@
             v-model="group"
             active-class="deep-purple--text text--accent-4"
           >
+            <div class="flex justify-around">
+              <input
+                type="text"
+                class="w-5/6"
+                v-model="query"
+                v-on:keyup.enter="addTag"
+              />
+              <button v-on:click="addTag">
+                <img
+                  src="../static/searchdark.svg"
+                  class="object-contain w-5 float-right"
+                />
+              </button>
+            </div>
+            <!--<searchBar
+              id="sidebarSearch"
+              v-model="query"
+              v-on:submit="addTag"
+            />
             <InstantSearch
               style="width:95%"
               class="mx-auto px-4 shadow-none"
-              v-bind="query"
+              v-model="query"
               v-on:submit="addTag"
-            />
+            />-->
 
             <v-list-item v-for="tag in tags" v-bind:key="tag.id">
               {{ tag }}
@@ -70,9 +90,9 @@ export default {
     searchBar,
     InstantSearch
   },
-  method: {
+  methods: {
     addTag: function() {
-      this.tag.push("this.query");
+      this.tags.push(this.query);
       console.log("add complete");
     }
   }
@@ -126,11 +146,17 @@ header {
   will-change: unset;
 }
 /*헤더 검색창 부분 스타일*/
-#headerSearch {
-  width: 50vw;
+#headerSearch #input {
+  width: 60vw;
   height: 100%;
   margin: 0px auto;
   box-shadow: unset;
+}
+#headerSearch form > * {
+  margin: 0px 5px;
+}
+#headerSearch input {
+  width: 100%;
 }
 button.ais-clear.ais-clear--disabled {
   display: none;
