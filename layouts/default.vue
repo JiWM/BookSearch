@@ -1,7 +1,7 @@
 <template>
   <div>
     <appHeader />
-    <searchBar class="w-2/5" />
+    <searchBar/>
     <Nuxt />
   </div>
 </template>

@@ -1,10 +1,12 @@
 <template>
   <div class="max-w-screen-3xl mx-auto">
     <div class="m-5 md:m-12 lg:m-16">
-      <p class="ml-16 mb-5">검색 목록으로</p>
-      <p>
-        <!--container-->
+      <nuxt-link to="/searchlist">
+      <p class="ml-16 mb-5 text-gray-500">
+        <span class="pr-1"><font-awesome-icon :icon="['fas', 'angle-double-left']"/></span>검색 목록으로
       </p>
+    </nuxt-link>
+        <!--container-->
 
       <div class="flex flex-col md:flex-row">
         <!--image-->
