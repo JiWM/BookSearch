@@ -1,6 +1,6 @@
 <template>
   <div
-    class="container h-screen w-screen bg-cover bg-center flex justify-center items-center"
+    class="h-screen w-screen bg-cover bg-center flex justify-center items-center"
     style="background-image: url(main.png)"
   >
     <div class="w-2/3 items-center justify-items-stretch text-center">
