@@ -1,18 +1,22 @@
 <template>
-  <nav class="h-20 grid bg-customYel
-   justify-items-center">
-      <InstantSearch class="w-1/2 shadow-none" />
+  <nav class="h-20 grid bg-yellow-300 justify-items-center">
+    <div class="flex m-4 p-2 bg-white border-1 rounded-md border-gray-400">
+      <form class="justify-center flex">
+        <input id="input" type="text" class="" />
+        <button type="submit">
+          <img
+            src="../static/searchdark.svg"
+            class="object-contain w-5 float-right"
+          />
+        </button>
+      </form>
+    </div>
   </nav>
 </template>
 
 <script>
-import InstantSearch from "../components/vue-instant-search.vue";
-
 export default {
-  name: "searchBar",
-    components:{
-      InstantSearch,
-    }
+  name: "searchBar"
 };
 </script>
 
