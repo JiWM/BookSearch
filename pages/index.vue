@@ -14,6 +14,7 @@
           v-model="query"
           v-on:keyup.enter="search"
           style="width:95%"
+          class="h-10"
         />
         <button v-on:click="search">
           <img
@@ -23,12 +24,14 @@
         </button>
       </div>
       <div class="flex justify-around  text-white">
-        <div>{{ keywords[num[0]] }}</div>
-        <div>{{ keywords[num[1]] }}</div>
-        <div>{{ keywords[num[2]] }}</div>
-        <div>{{ keywords[num[3]] }}</div>
-        <div>{{ keywords[num[4]] }}</div>
-        <div>{{ keywords[num[5]] }}</div>
+        <div
+          v-for="keyword in keywords.slice(num, num + 5)"
+          v-bind:key="keyword.id"
+        >
+          <nuxt-link :to="{ name: 'searchlist', params: { keyword: keyword } }">
+            {{ keyword }}
+          </nuxt-link>
+        </div>
       </div>
     </div>
   </div>
@@ -40,9 +43,11 @@ import Logo from "../components/Logo.vue";
 import InstantSearch from "../components/vue-instant-search.vue";
 //import InnerSearch from "../components/vue-innersearch.vue";
 
-var num = new Array();
+var num = Math.random() * 14;
 
-while (true) {
+//var num = new Array();
+
+/*while (true) {
   if (num.length == 7) {
     break;
   }
@@ -51,7 +56,7 @@ while (true) {
     continue;
   }
   num.push(data);
-}
+}*/
 
 export default {
   layout: "main",
@@ -91,6 +96,11 @@ export default {
     async search() {
       this.searchResult = await this.$axios.$get("http://13.209.42.183:5000", {
         user_input: this.query
+      });
+    },
+    async searchKeyword(keyword) {
+      this.searchResult = await this.$axios.$get("http://13.209.42.183:5000", {
+        user_input: keyword
       });
     }
   }

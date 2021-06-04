@@ -60,7 +60,21 @@
         </v-list>
       </v-navigation-drawer>
       <v-card-text>
-        <Nuxt />
+        <div class="p-8">
+          <div
+            class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-5 gap-6"
+          >
+            <div
+              class="mx-auto w-40 text-center"
+              v-for="book in searchResult.hits.hits"
+              v-bind:key="book.id"
+              onchange="getSrc(book.id)"
+            >
+              <img id="book.id" src="" />
+              {{ book._source.title }}
+            </div>
+          </div>
+        </div>
       </v-card-text>
     </v-card>
   </div>
@@ -73,12 +87,164 @@ import searchBar from "../components/searchbar";
 import InstantSearch from "../components/vue-instant-search.vue";
 
 export default {
+  mounted() {
+    if (this.$route.params) {
+      /*this.searchResult = this.$axios.$get("http://13.209.42.183:5000", {
+        user_input: this.$route.params.keyword
+      });*/
+      this.tags.push(this.$route.params.keyword);
+    }
+  },
   data: () => ({
     drawer: false,
     group: null,
     query: "",
-    tags: ["111", "222", "333"],
-    searchResult: []
+    tags: [],
+    searchResult: {
+      took: 47,
+      timed_out: false,
+      _shards: {
+        total: 1,
+        successful: 1,
+        skipped: 0,
+        failed: 0
+      },
+      hits: {
+        total: {
+          value: 95,
+          relation: "eq"
+        },
+        max_score: 3.4548092,
+        hits: [
+          {
+            _index: "book",
+            _type: "_doc",
+            _id: "60",
+            _score: 3.4548092,
+            _source: {
+              author: "Richard Wright",
+              genre: [
+                "Fiction",
+                "Classics",
+                "Historical",
+                "Historical Fiction",
+                "Cultural",
+                "African American",
+                "Race",
+                "Literature",
+                "Novels",
+                "Academic",
+                "School",
+                "Literature",
+                "American",
+                "Literature",
+                "Banned Books"
+              ],
+              title: "Native Son"
+            }
+          },
+          {
+            _index: "book",
+            _type: "_doc",
+            _id: "43",
+            _score: 3.3463933,
+            _source: {
+              author: "Marilynne Robinson",
+              genre: [
+                "Fiction",
+                "Novels",
+                "Classics",
+                "Literary Fiction",
+                "Literature",
+                "Contemporary",
+                "Literature",
+                "American",
+                "Young Adult",
+                "Coming Of Age",
+                "Audiobook",
+                "Book Club"
+              ],
+              title: "Housekeeping"
+            }
+          },
+          {
+            _index: "book",
+            _type: "_doc",
+            _id: "59",
+            _score: 3.3463933,
+            _source: {
+              author: "William S. Burroughs",
+              genre: [
+                "Fiction",
+                "Classics",
+                "Literature",
+                "Novels",
+                "Literature",
+                "American",
+                "Contemporary",
+                "Thriller",
+                "Literature",
+                "Banned Books",
+                "Literature",
+                "20th Century",
+                "Science Fiction"
+              ],
+              title: "Naked Lunch"
+            }
+          },
+          {
+            _index: "book",
+            _type: "_doc",
+            _id: "91",
+            _score: 3.117892,
+            _source: {
+              author: "Henry Miller",
+              genre: [
+                "Fiction",
+                "Classics",
+                "Literature",
+                "Novels",
+                "Literature",
+                "American",
+                "Adult Fiction",
+                "Erotica",
+                "Literature",
+                "Banned Books",
+                "Literature",
+                "20th Century",
+                "Cultural",
+                "France",
+                "Literary Fiction"
+              ],
+              title: "Tropic of Cancer"
+            }
+          },
+          {
+            _index: "book",
+            _type: "_doc",
+            _id: "7",
+            _score: 2.6716723,
+            _source: {
+              author: "Ann Patchett",
+              genre: [
+                "Fiction",
+                "Literary Fiction",
+                "Contemporary",
+                "Audiobook",
+                "Novels",
+                "Fantasy",
+                "Magic",
+                "Book Club",
+                "Adult Fiction",
+                "Adult",
+                "Fantasy"
+              ],
+              title: "The Assistant"
+            }
+          }
+        ]
+      }
+    }
   }),
   watch: {
     group() {
@@ -107,6 +273,11 @@ export default {
       this.searchResult = await this.$axios.$get("http://13.209.42.183:5000", {
         user_input: this.query
       });
+    },
+    getSrc(bookId) {
+      result = "../static/book_cover/" + bookId + ".jpg";
+
+      document.getElementById("book.id").src = result;
     }
   }
 };
