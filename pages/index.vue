@@ -8,7 +8,20 @@
       <div class="text-3xl text-white font-bold">
         LIGHT UP YOUR READING
       </div>
-      <InstantSearch />
+      <div class="flex justify-around bg-white rounded-lg">
+        <input
+          type="text"
+          v-model="query"
+          v-on:keyup.enter="search"
+          style="width:95%"
+        />
+        <button v-on:click="search">
+          <img
+            src="../static/searchdark.svg"
+            class="object-contain w-5 float-right"
+          />
+        </button>
+      </div>
       <div class="flex justify-around  text-white">
         <div>{{ keywords[num[0]] }}</div>
         <div>{{ keywords[num[1]] }}</div>
@@ -73,6 +86,13 @@ export default {
       ],
       num: num
     };
+  },
+  methods: {
+    async search() {
+      this.searchResult = await this.$axios.$get("http://13.209.42.183:5000", {
+        user_input: this.query
+      });
+    }
   }
 };
 </script>

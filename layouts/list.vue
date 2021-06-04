@@ -16,7 +16,7 @@
             v-model="group"
             active-class="deep-purple--text text--accent-4"
           >
-            <div class="flex justify-around">
+            <div class="flex justify-around bg-gray-200 p-3 rounded-lg">
               <input
                 type="text"
                 class="w-5/6"
@@ -30,6 +30,7 @@
                 />
               </button>
             </div>
+            <br />
             <!--<searchBar
               id="sidebarSearch"
               v-model="query"
@@ -42,19 +43,18 @@
               v-on:submit="addTag"
             />-->
 
-            <v-list-item v-for="tag in tags" v-bind:key="tag.id">
-              {{ tag }}
-            </v-list-item>
-            <v-list-item>
-              <v-list-item-title>Bar</v-list-item-title>
-            </v-list-item>
-
-            <v-list-item>
-              <v-list-item-title>Fizz</v-list-item-title>
-            </v-list-item>
-
-            <v-list-item>
-              <v-list-item-title>Buzz</v-list-item-title>
+            <v-list-item
+              v-for="tag in tags"
+              v-bind:key="tag.id"
+              class="bg-blue-100 bg-opacity-70"
+            >
+              <v-list-item-title class="h-5">{{ tag }}</v-list-item-title>
+              <img
+                src="../static/cancel.png"
+                width="6%"
+                height="60%"
+                v-on:click="deleteTag(tag)"
+              />
             </v-list-item>
           </v-list-item-group>
         </v-list>
@@ -77,7 +77,8 @@ export default {
     drawer: false,
     group: null,
     query: "",
-    tags: ["111", "222", "333"]
+    tags: ["111", "222", "333"],
+    searchResult: []
   }),
   watch: {
     group() {
@@ -92,8 +93,20 @@ export default {
   },
   methods: {
     addTag: function() {
-      this.tags.push(this.query);
-      console.log("add complete");
+      if (!this.tags.includes(this.query) && this.query != "") {
+        this.tags.push(this.query);
+        console.log("add complete");
+      }
+    },
+    deleteTag: function(tag) {
+      var num = this.tags.indexOf(tag);
+      this.tags.splice(num, 1);
+      console.log("delete complete");
+    },
+    async search() {
+      this.searchResult = await this.$axios.$get("http://13.209.42.183:5000", {
+        user_input: this.query
+      });
     }
   }
 };
