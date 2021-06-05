@@ -69,11 +69,18 @@
               v-for="book in searchResult"
               v-bind:key="book.id"
             >
-              <img
-                :src="require('../static/book_cover/' + book._id + '.jpg')"
-                class="my-auto mx-auto"
-              />
-              {{ book._source.title }}
+              <nuxt-link
+                :to="{
+                  name: 'book',
+                  params: { book: book, booklist: searchResult }
+                }"
+              >
+                <img
+                  :src="require('../static/book_cover/' + book._id + '.jpg')"
+                  class="my-auto mx-auto"
+                />
+                {{ book._source.title }}
+              </nuxt-link>
             </div>
           </div>
         </div>
@@ -91,17 +98,20 @@ import InstantSearch from "../components/vue-instant-search.vue";
 export default {
   mounted() {
     /*if (this.$route.params) {
-      this.searchResult = this.$axios.$get("http://13.209.42.183:5000", {
-        user_input: this.$route.params.keyword
-      });
+      this.searchResult = this.$axios
+        .$get(
+          "http://172.16.101.206:5000/search?user_input=" +
+            this.$route.params.keyword
+        )
+        .then(function(res) {
+          return res;
+        });
       this.tags.push(this.$route.params.keyword);
-    }*/
+    } else {*/
     let temp1 = window.location.search;
     let temp2 = temp1.split("=");
-    console.log(this.query);
+    console.log("hahaha");
     this.query = temp2[1];
-    console.log(temp2);
-    console.log(this.query);
     this.searchResult = this.$axios
       .$get("http://172.16.101.206:5000/search?user_input=" + this.query)
       .then(function(res) {

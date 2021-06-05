@@ -29,12 +29,15 @@
           v-for="keyword in keywords.slice(num, num + 5)"
           v-bind:key="keyword.id"
         >
-          <nuxt-link
+          <!--<nuxt-link
             :to="{ name: 'searchlist', params: { keyword: keyword } }"
             v-on:click="search(keyword)"
           >
             {{ keyword }}
-          </nuxt-link>
+          </nuxt-link>-->
+          <button v-on:click="searchKeyword(keyword)">
+            {{ keyword }}
+          </button>
         </div>
       </div>
     </div>
@@ -109,10 +112,6 @@ export default {
       });
     },*/
     async search() {
-      this.searchResult = await this.$axios.$get(
-        "http://172.16.101.206:5000/search?user_input=" + this.query
-      );
-      console.log(this.searchResult);
       window.location.href = "/searchlist?query=" + this.query;
     },
     /*async search() {
@@ -133,10 +132,18 @@ export default {
       window.location.href =
         "/searchlist?result=" + this.searchResult.hits.hits;
     },*/
-    async searchKeyword(keyword) {
+    /*async searchKeyword(keyword) {
       this.searchResult = await this.$axios.$get(
         "http://172.16.101.206:5000/search?user_input=" + this.query
       );
+      this.searchResult = await this.$axios.$get(
+        "http://172.16.101.206:5000/search?user_input=" + this.query
+      );
+      console.log(this.searchResult);
+      window.location.href = "/searchlist?query=" + this.query;
+    }*/
+    async searchKeyword(keyword) {
+      window.location.href = "/searchlist?query=" + keyword;
     }
   }
 };
