@@ -47,6 +47,12 @@ export default {
 
     vuetify: {},
 
+    // Modules: https://go.nuxtjs.dev/config-modules
+    modules: [
+        "@nuxtjs/router",
+        "@nuxtjs/axios",
+    ],
+
     // Build Configuration: https://go.nuxtjs.dev/config-build
     build: {
         postcss: {
@@ -56,4 +62,10 @@ export default {
         },
         extend(config, ctx) {},
     },
+
+    axios: {
+        //baseURL: 'http://127.0.0.1:5000'
+        baseURL: 'http://172.16.101.206:5000'
+    },
+
 };

@@ -11,7 +11,7 @@
           <div class="mx-auto w-40 p-2 border border-gray-300">
             <nuxt-link to="/book">
             <img src="/book.jpg">
-            <p class="text-center text-sm p-2">달러구트 꿈 백화점</p>
+            <p class="text-center text-sm p-2" v-bind="book">{{book.title}}</p>
             </nuxt-link>
             <button class="bg-gray-500 rounded text-sm text-white pl-2 pr-2">삭제</button>
           </div>
@@ -31,7 +31,44 @@
 </template>
 
 <script>
-export default {
+import { mapGetters } from 'vuex'
 
+export default {
+  data() {
+    return {
+      book: {
+        id:"1",
+        title:"달러구트 꿈 백화점",
+      },
+    }
+  },
+  middleware ({ store, redirect }) {
+    // If the user is not authenticated
+    if (!store.state.isAuth) {
+      return redirect('/login')
+    }
+  },
+  computed: {
+      ...mapGetters(['loggedInUser','loggedInToken'])
+  },
+  beforeMount(){
+    this.getBooks()
+  },
+  methods:{
+    getBooks:function(){
+      const token=this.loggedInToken
+      console.log('token:')
+      console.log(token)
+      this.$axios.get('bookshelf', {
+        headers:{
+          Authorization: `${token}`
+        }
+        }).then((res) => {
+        console.log(res.data)
+        }).catch((error) => {
+        console.error(error)
+        })
+    }
+  }
 }
 </script>

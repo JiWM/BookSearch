@@ -4,7 +4,7 @@ module.exports = {
             ...theme('colors'),
             customYel: {
                 100: '#f3e4ab',
-                default: '#e4c17f',
+                200: '#e4c17f',
             },
             customGray: {
                 100: '#f2f2f2',
