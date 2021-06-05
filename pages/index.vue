@@ -16,6 +16,7 @@
           style="width:95%"
           class="h-10"
         />
+
         <button v-on:click="search">
           <img
             src="../static/searchdark.svg"
@@ -28,7 +29,10 @@
           v-for="keyword in keywords.slice(num, num + 5)"
           v-bind:key="keyword.id"
         >
-          <nuxt-link :to="{ name: 'searchlist', params: { keyword: keyword } }">
+          <nuxt-link
+            :to="{ name: 'searchlist', params: { keyword: keyword } }"
+            v-on:click="search(keyword)"
+          >
             {{ keyword }}
           </nuxt-link>
         </div>
@@ -42,8 +46,12 @@ import Logo from "../components/Logo.vue";
 //import VueSearchPanel from "../components/vue-search-panel.vue";
 import InstantSearch from "../components/vue-instant-search.vue";
 //import InnerSearch from "../components/vue-innersearch.vue";
+/*import vueResource from "vue-resource";
+
+Vue.use(vueResource);*/
 
 var num = Math.random() * 14;
+var query = "";
 
 //var num = new Array();
 
@@ -89,19 +97,46 @@ export default {
         "mystery",
         "blockbuster"
       ],
-      num: num
+      num: num,
+      query: query
     };
   },
   methods: {
+    /*function format(): {
+      var args = Array.prototype.slice.call (arguments, 1);
+      return arguments[0].replace (/\{(\d+)\}/g, function(match, index){
+        return args[index];
+      });
+    },*/
     async search() {
-      this.searchResult = await this.$axios.$get("http://13.209.42.183:5000", {
-        user_input: this.query
-      });
+      this.searchResult = await this.$axios.$get(
+        "http://172.16.101.206:5000/search?user_input=" + this.query
+      );
+      console.log(this.searchResult);
+      window.location.href = "/searchlist?query=" + this.query;
     },
+    /*async search() {
+      this.searchResult = await this.$axios
+        .$get("http://172.16.101.206:5000/search?user_input=" + this.query)
+        .then(function(res) {
+          return res;
+        });
+      console.log(this.searchResult);
+      const translatePromise = async () => {
+        this.searchResult = await this.searchResult;
+        console.log(this.searchResult);
+      };
+
+      translatePromise();
+      translatePromise();
+
+      window.location.href =
+        "/searchlist?result=" + this.searchResult.hits.hits;
+    },*/
     async searchKeyword(keyword) {
-      this.searchResult = await this.$axios.$get("http://13.209.42.183:5000", {
-        user_input: keyword
-      });
+      this.searchResult = await this.$axios.$get(
+        "http://172.16.101.206:5000/search?user_input=" + this.query
+      );
     }
   }
 };
