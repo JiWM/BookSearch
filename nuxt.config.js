@@ -1,4 +1,4 @@
-const path = require('path');
+const path = require("path");
 
 export default {
     // Global page headers: https://go.nuxtjs.dev/config-head
@@ -16,7 +16,7 @@ export default {
     },
 
     // Global CSS: https://go.nuxtjs.dev/config-css
-    css: ['~assets/css/tailwind.css'],
+    css: ["~assets/css/tailwind.css"],
 
     // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
     plugins: ["~plugins/vue-instantsearch"],
@@ -28,14 +28,15 @@ export default {
     buildModules: [
         // https://go.nuxtjs.dev/tailwindcss
         "@nuxtjs/tailwindcss", [
-            'nuxt-fontawesome', {
+            "nuxt-fontawesome",
+            {
                 imports: [{
-                        set: '@fortawesome/free-solid-svg-icons',
-                        icons: ['fas']
+                        set: "@fortawesome/free-solid-svg-icons",
+                        icons: ["fas"]
                     },
                     {
-                        set: '@fortawesome/free-brands-svg-icons',
-                        icons: ['fab']
+                        set: "@fortawesome/free-brands-svg-icons",
+                        icons: ["fab"]
                     }
                 ]
             }
@@ -43,15 +44,21 @@ export default {
     ],
 
     // Modules: https://go.nuxtjs.dev/config-modules
-    modules: ["@nuxtjs/vuetify"],
+    modules: ["@nuxtjs/router", "@nuxtjs/axios", "@nuxtjs/vuetify", ],
+
+    axios: {
+        proxy: true, //default - "false",
+        baseurl: "http://13.209.42.183:5000/"
+    },
+    proxy: {
+        "/search/": {
+            target: "http://13.209.42.183:5000/",
+            pathRewrite: { "^/search/": "" },
+            changeOrigin: true
+        }
+    },
 
     vuetify: {},
-
-    // Modules: https://go.nuxtjs.dev/config-modules
-    modules: [
-        "@nuxtjs/router",
-        "@nuxtjs/axios",
-    ],
 
     // Build Configuration: https://go.nuxtjs.dev/config-build
     build: {
@@ -63,9 +70,5 @@ export default {
         extend(config, ctx) {},
     },
 
-    axios: {
-        //baseURL: 'http://127.0.0.1:5000'
-        baseURL: 'http://172.16.101.206:5000'
-    },
 
 };

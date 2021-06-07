@@ -24,7 +24,11 @@ export default {
     methods:{
     logout(){
         this.$store.commit('logout')
-        this.$router.go()
+        
+        var current = this.$route.name;
+        if (current=='bookshelf')
+          {this.$router.go()}
+        
       }
     }
     

@@ -16,7 +16,7 @@
             v-model="group"
             active-class="deep-purple--text text--accent-4"
           >
-            <div class="flex justify-around">
+            <div class="flex justify-around bg-gray-200 p-3 rounded-lg">
               <input
                 type="text"
                 class="w-5/6"
@@ -30,6 +30,7 @@
                 />
               </button>
             </div>
+            <br />
             <!--<searchBar
               id="sidebarSearch"
               v-model="query"
@@ -42,25 +43,47 @@
               v-on:submit="addTag"
             />-->
 
-            <v-list-item v-for="tag in tags" v-bind:key="tag.id">
-              {{ tag }}
-            </v-list-item>
-            <v-list-item>
-              <v-list-item-title>Bar</v-list-item-title>
-            </v-list-item>
-
-            <v-list-item>
-              <v-list-item-title>Fizz</v-list-item-title>
-            </v-list-item>
-
-            <v-list-item>
-              <v-list-item-title>Buzz</v-list-item-title>
+            <v-list-item
+              v-for="tag in tags"
+              v-bind:key="tag.id"
+              class="bg-blue-100 bg-opacity-70"
+            >
+              <v-list-item-title class="h-5">{{ tag }}</v-list-item-title>
+              <img
+                src="../static/cancel.png"
+                width="6%"
+                height="60%"
+                v-on:click="deleteTag(tag)"
+              />
             </v-list-item>
           </v-list-item-group>
         </v-list>
       </v-navigation-drawer>
-      <v-card-text>
-        <Nuxt />
+      <v-card-text id="cardText">
+        <div class="p-8">
+          <div
+            class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-5 gap-6"
+          >
+            <div
+              class="mx-auto w-40 text-center flex flex-wrap content-between justify-center"
+              v-for="book in searchResult"
+              v-bind:key="book.id"
+            >
+              <nuxt-link
+                :to="{
+                  name: 'book',
+                  params: { book: book, booklist: searchResult }
+                }"
+              >
+                <img
+                  :src="require('../static/book_cover/' + book._id + '.jpg')"
+                  class="my-auto mx-auto"
+                />
+                {{ book._source.title }}
+              </nuxt-link>
+            </div>
+          </div>
+        </div>
       </v-card-text>
     </v-card>
   </div>
@@ -73,15 +96,56 @@ import searchBar from "../components/searchbar";
 import InstantSearch from "../components/vue-instant-search.vue";
 
 export default {
+  mounted() {
+    /*if (this.$route.params) {
+      this.searchResult = this.$axios
+        .$get(
+          "http://172.16.101.206:5000/search?user_input=" +
+            this.$route.params.keyword
+        )
+        .then(function(res) {
+          return res;
+        });
+      this.tags.push(this.$route.params.keyword);
+    } else {*/
+    let temp1 = window.location.search;
+    let temp2 = temp1.split("=");
+    console.log("hahaha");
+    this.query = temp2[1];
+    this.searchResult = this.$axios
+      .$get("http://13.209.42.183:5000/search?user_input=" + this.query)
+      .then(function(res) {
+        return res;
+      });
+
+    const translatePromise = async () => {
+      let temp = await this.searchResult;
+      this.searchResult = temp.hits.hits;
+      console.log(this.searchResult);
+    };
+
+    translatePromise();
+  },
   data: () => ({
     drawer: false,
     group: null,
-    query: "",
-    tags: ["111", "222", "333"]
+    query: "Initial Value",
+    tags: [11, 22, 33],
+    searchResult: [
+      {
+        _id: "0",
+        _source: {
+          title: ""
+        }
+      }
+    ]
   }),
   watch: {
     group() {
       this.drawer = false;
+    },
+    newSearch() {
+      window.location.search;
     }
   },
   components: {
@@ -92,9 +156,26 @@ export default {
   },
   methods: {
     addTag: function() {
-      this.tags.push(this.query);
-      console.log("add complete");
+      if (!this.tags.includes(this.query) && this.query != "") {
+        this.tags.push(this.query);
+        console.log("add complete");
+      }
+    },
+    deleteTag: function(tag) {
+      var num = this.tags.indexOf(tag);
+      this.tags.splice(num, 1);
+      console.log("delete complete");
+    },
+    async search() {
+      this.searchResult = await this.$axios.$get(
+        "http://13.209.42.183:5000/search?user_input=" + this.query
+      );
     }
+    /*getSrc(bookId) {
+      result = "../static/book_cover/" + bookId + ".jpg";
+
+      document.getElementById(bookId).src = result;
+    }*/
   }
 };
 </script>

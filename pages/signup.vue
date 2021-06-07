@@ -40,16 +40,19 @@ export default {
             id:this.id,
             password: this.password
         }).then((response) => {
-		    console.log(response.data)
+		    //console.log(response.data)
         var userid=response.data.user_id
         var usertoken=response.data.access_token
         this.$store.commit('loginid', userid)
         this.$store.commit('logintoken', usertoken)
         this.$store.dispatch('loggedIn')
 	      });
+        if (this.$nuxt.context.from.name=='login'){
+          this.$router.go(-2)
+        }
+        else {this.$router.go(-1)}
 
-
-        this.$router.go(-1)
+        //this.$router.go(-1)
       } catch (e) {
         console.error(e.response);
       }

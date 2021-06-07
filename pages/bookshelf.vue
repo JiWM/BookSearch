@@ -8,12 +8,15 @@
 
       <div>
         <div class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-5 gap-3">
-          <div class="mx-auto w-40 p-2 border border-gray-300">
-            <nuxt-link to="/book">
-            <img src="/book.jpg">
-            <p class="text-center text-sm p-2" v-bind="book">{{book.title}}</p>
+          <div class="mx-auto w-40 p-2 border border-gray-300" v-for="book in myBooks" v-bind:key="book._id">
+            <nuxt-link :to="{name: 'book', params: { book: book }}">
+
+            <!--:src="require('../static/book_cover/' + book.id + '.jpg')"-->
+            <img :src="require('../static/book_cover/' + book._id + '.jpg')">
+
+            <p class="text-center text-sm p-2" v-bind="book">{{book._source.title}}</p>
             </nuxt-link>
-            <button class="bg-gray-500 rounded text-sm text-white pl-2 pr-2">삭제</button>
+            <button @click="deleteBook" class="bg-gray-500 rounded text-sm text-white pl-2 pr-2">삭제</button>
           </div>
           <div class="mx-auto w-40 p-2 bg-gray-300">
           </div>
@@ -36,10 +39,14 @@ import { mapGetters } from 'vuex'
 export default {
   data() {
     return {
-      book: {
-        id:"1",
-        title:"달러구트 꿈 백화점",
-      },
+      myBooks: [
+      {
+        _id: "0",
+        _source: {
+          title: ""
+        }
+      }
+    ]
     }
   },
   middleware ({ store, redirect }) {
@@ -64,7 +71,28 @@ export default {
           Authorization: `${token}`
         }
         }).then((res) => {
+        console.log('bookshelf')
+        console.log(res)
         console.log(res.data)
+        var getlist=res.data
+        for (var key in obj) {
+          this.myBooks[key]=getlist[key]
+        }
+        }).catch((error) => {
+        console.error(error)
+        })
+    },
+    deleteBook(){
+      const token=this.loggedInToken
+      console.log('token:')
+      console.log(token)
+      this.$axios.post('bookshelf', {
+        data:{book_id:this.book_id},
+        headers:{
+          Authorization: `${token}`
+        }
+        }).then((res) => {
+        console.log(res)
         }).catch((error) => {
         console.error(error)
         })
