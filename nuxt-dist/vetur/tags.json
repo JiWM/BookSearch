@@ -1,0 +1,26 @@
+{
+  "Appheader": {
+    "description": "Auto imported from components/appheader.vue"
+  },
+  "Bookdetail": {
+    "description": "Auto imported from components/bookdetail.vue"
+  },
+  "Booklist": {
+    "description": "Auto imported from components/booklist.vue"
+  },
+  "Logo": {
+    "description": "Auto imported from components/Logo.vue"
+  },
+  "Modal": {
+    "description": "Auto imported from components/modal.vue"
+  },
+  "Searchbar": {
+    "description": "Auto imported from components/searchbar.vue"
+  },
+  "Sidebar": {
+    "description": "Auto imported from components/sidebar.vue"
+  },
+  "VueInstantSearch": {
+    "description": "Auto imported from components/vue-instant-search.vue"
+  }
+}

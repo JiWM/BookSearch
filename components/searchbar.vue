@@ -33,7 +33,7 @@ export default {
   methods: {
     async search() {
       this.searchResult = await this.$axios.$get(
-        "http://13.209.42.183:5000/search?user_input=" + this.query
+        "http://172.16.101.206:5000/search?user_input=" + this.query
       );
       console.log(this.searchResult);
       window.location.href = "/searchlist?query=" + this.query;

@@ -23,7 +23,7 @@ export default {
   methods: {
     async login() {
       try {
-        await this.$axios.post('login', {
+        await this.$axios.post('http://172.16.101.206:5000/login', {
             id:this.id,
             password: this.password
         }).then((response) => {

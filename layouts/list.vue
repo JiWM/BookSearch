@@ -69,9 +69,10 @@
               v-for="book in searchResult"
               v-bind:key="book.id"
             >
+            <!--'/book/'+book._id-->
               <nuxt-link
                 :to="{
-                  name: 'book',
+                  name: 'book2',
                   params: { book: book, booklist: searchResult }
                 }"
               >

@@ -22,23 +22,23 @@
         <div
           class="relative flex flex-wrap mx-auto w-full md:ml-6 xl:ml-10 mr-20 xl:mr-16 lg:ml-16 p-5"
         >
-          <div id="contents" class="h-full">
+          <div id="contents" class="md:h-full">
             <table class="table-fixed w-full">
               <tr>
-                <td class="text-2xl align-top w-1/4">TITLE</td>
-                <td class="text-left">{{ book_title }}</td>
+                <td class="align-top text-xs md:text-sm lg:text-lg xl:text-xl w-1/4 break-all">TITLE</td>
+                <td class="text-left text-2xs md:text-sm lg:text-lg">{{ book_title }}</td>
               </tr>
               <tr>
-                <td class="text-2xl align-top w-1/4">AUTHOR</td>
-                <td class="text-left">{{ book_author }}</td>
+                <td class="align-top text-xs md:text-sm lg:text-lg xl:text-xl w-1/4 break-all">AUTHOR</td>
+                <td class="text-left text-2xs md:text-sm lg:text-lg">{{ book_author }}</td>
               </tr>
               <tr>
-                <td class="text-2xl align-top w-1/4">GENRE</td>
-                <td class="text-left">{{ book_genre }}</td>
+                <td class="align-top text-xs md:text-sm lg:text-lg xl:text-xl w-1/4 break-all">GENRE</td>
+                <td class="text-left text-2xs md:text-sm lg:text-lg">{{ book_genre }}</td>
               </tr>
               <tr>
-                <td class="text-2xl align-top w-1/4">SCORE</td>
-                <td class="text-left">{{ book_rate }}</td>
+                <td class="align-top text-xs md:text-sm lg:text-lg xl:text-xl w-1/4 break-all">SCORE</td>
+                <td class="text-left text-2xs md:text-sm lg:text-lg">{{ book_rate }}</td>
               </tr>
             </table>
 
@@ -110,6 +110,7 @@ import modal from "./modal.vue"
 import { mapGetters } from 'vuex'
 
 export default {
+  
   mounted() {
     console.log(this.$route.params.book);
     if (this.$route.params.book) {
@@ -140,20 +141,23 @@ export default {
     },
     
     addBook(){
+    if (!this.$store.state.isAuth) {alert('please login')}
+    else{
       this.toBookshelf = true
       const token=this.loggedInToken
       console.log('token:')
       console.log(token)
-      this.$axios.post('bookshelf', {
-        data:{book_id:this.book_id, book_title:this.book_title},
-        headers:{
-          Authorization: `${token}`
-        }
+      var data={book_id:this.book_id, book_title:this.book_title}
+      const headers={Authorization: `${token}`}
+      this.$axios.post('http://172.16.101.206:5000/bookshelf', data,{
+        headers:headers
         }).then((res) => {
+          console.log('addbook')
         console.log(res)
         }).catch((error) => {
         console.error(error)
         })
+    }
     }
   },
   components: {

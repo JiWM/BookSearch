@@ -15,6 +15,7 @@ export default {
         link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }]
     },
 
+
     // Global CSS: https://go.nuxtjs.dev/config-css
     css: ["~assets/css/tailwind.css"],
 
@@ -44,15 +45,15 @@ export default {
     ],
 
     // Modules: https://go.nuxtjs.dev/config-modules
-    modules: ["@nuxtjs/router", "@nuxtjs/axios", "@nuxtjs/vuetify", ],
+    modules: ["@nuxtjs/router", "@nuxtjs/axios", "@nuxtjs/vuetify"],
 
     axios: {
         proxy: true, //default - "false",
-        baseurl: "http://13.209.42.183:5000/"
+        baseurl: "http://172.16.101.206:5000/"
     },
     proxy: {
         "/search/": {
-            target: "http://13.209.42.183:5000/",
+            target: "http://172.16.101.206:5000/",
             pathRewrite: { "^/search/": "" },
             changeOrigin: true
         }
