@@ -5,7 +5,7 @@
   >
     <div class="w-2/3 items-center justify-items-stretch text-center">
       <img src="../static/logowhite.svg" class="mx-auto" />
-      <div class="text-3xl text-white font-bold">
+      <div class="text-lg lg:text-3xl text-white font-bold">
         LIGHT UP YOUR READING
       </div>
       <div class="flex justify-around bg-white rounded-lg">
@@ -24,7 +24,7 @@
           />
         </button>
       </div>
-      <div class="flex justify-around  text-white">
+      <div class="flex justify-around text-white invisible lg:visible">
         <div
           v-for="keyword in keywords.slice(num, num + 5)"
           v-bind:key="keyword.id"

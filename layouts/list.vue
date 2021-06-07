@@ -21,9 +21,17 @@
                 type="text"
                 class="w-5/6"
                 v-model="bonus_query"
-                v-on:keyup.enter="addTag"
+                v-on:keyup.enter="
+                  addTag();
+                  additionalSearch();
+                "
               />
-              <button v-on:click="addTag, additionalSearch">
+              <button
+                v-on:click="
+                  addTa();
+                  additionalSearch();
+                "
+              >
                 <img
                   src="../static/searchdark.svg"
                   class="object-contain w-5 float-right"
@@ -62,24 +70,32 @@
       <v-card-text id="cardText">
         <div class="p-8">
           <div
-            class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-5 gap-6"
+            class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-5 gap-6 "
           >
             <div
-              class="mx-auto w-40 text-center flex flex-wrap content-between justify-center"
+              class="mx-auto w-40 text-center flex flex-wrap justify-center"
               v-for="book in searchResult"
               v-bind:key="book.id"
+              style=""
             >
               <nuxt-link
                 :to="{
                   name: 'book',
                   params: { book: book, booklist: searchResult }
                 }"
+                class="flex flex-wrap content-between"
               >
                 <img
                   :src="require('../static/book_cover/' + book._id + '.jpg')"
                   class="my-auto mx-auto"
+                  height="20px"
                 />
-                {{ book._source.title }}
+                <div
+                  class="mx-auto"
+                  style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis"
+                >
+                  {{ book._source.title }}
+                </div>
               </nuxt-link>
             </div>
           </div>
@@ -132,7 +148,7 @@ export default {
     query: "Initial Value",
     bonus_query: "",
     keywords: "",
-    tags: [11, 22, 33],
+    tags: [],
     searchResult: [
       {
         _id: "0",
@@ -157,9 +173,19 @@ export default {
     InstantSearch
   },
   methods: {
+    initializeResult: function() {
+      this.searchResult = [
+        {
+          _id: "0",
+          _source: {
+            title: ""
+          }
+        }
+      ];
+    },
     addTag: function() {
-      if (!this.tags.includes(this.query) && this.query != "") {
-        this.tags.push(this.query);
+      if (!this.tags.includes(this.bonus_query) && this.bonus_query != "") {
+        this.tags.push(this.bonus_query);
         console.log("add complete");
       }
     },
@@ -175,17 +201,47 @@ export default {
     },
     async additionalSearch() {
       let temp = "";
-      for (let i; i < this.tags.length; i++) {
-        temp = temp + " " + tags[i];
+      for (let i = 0; i < this.tags.length; i++) {
+        temp = temp + " " + this.tags[i];
       }
 
-      this.searchResult = await this.$axios.$get(
-        "http://172.16.101.206:5000/search?user_input=" +
-          this.query +
-          "&keyword=" +
-          temp
-      );
+      console.log(temp);
+
+      //initializeResult();
+
+      this.searchResult = [
+        {
+          _id: "0",
+          _source: {
+            title: ""
+          }
+        }
+      ];
+
+      console.log(this.searchResult);
+
+      this.searchResult = this.$axios
+        .$get(
+          "http://172.16.101.206:5000/search?user_input=" +
+            this.query +
+            "&keyword=" +
+            temp
+        )
+        .then(function(res) {
+          return res;
+        });
+
+      const translatePromise = async () => {
+        let temp = await this.searchResult;
+        this.searchResult = temp.hits.hits;
+        console.log(this.searchResult);
+      };
+
+      translatePromise();
+
+      console.log(this.searchResult);
     }
+
     /*getSrc(bookId) {
       result = "../static/book_cover/" + bookId + ".jpg";
 
