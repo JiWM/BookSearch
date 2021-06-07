@@ -20,10 +20,10 @@
               <input
                 type="text"
                 class="w-5/6"
-                v-model="query"
+                v-model="bonus_query"
                 v-on:keyup.enter="addTag"
               />
-              <button v-on:click="addTag">
+              <button v-on:click="addTag, additionalSearch">
                 <img
                   src="../static/searchdark.svg"
                   class="object-contain w-5 float-right"
@@ -113,7 +113,7 @@ export default {
     console.log("hahaha");
     this.query = temp2[1];
     this.searchResult = this.$axios
-      .$get("http://13.209.42.183:5000/search?user_input=" + this.query)
+      .$get("http://172.16.101.206:5000/search?user_input=" + this.query)
       .then(function(res) {
         return res;
       });
@@ -130,6 +130,8 @@ export default {
     drawer: false,
     group: null,
     query: "Initial Value",
+    bonus_query: "",
+    keywords: "",
     tags: [11, 22, 33],
     searchResult: [
       {
@@ -168,7 +170,20 @@ export default {
     },
     async search() {
       this.searchResult = await this.$axios.$get(
-        "http://13.209.42.183:5000/search?user_input=" + this.query
+        "http://172.16.101.206:5000/search?user_input=" + this.query
+      );
+    },
+    async additionalSearch() {
+      let temp = "";
+      for (let i; i < this.tags.length; i++) {
+        temp = temp + " " + tags[i];
+      }
+
+      this.searchResult = await this.$axios.$get(
+        "http://172.16.101.206:5000/search?user_input=" +
+          this.query +
+          "&keyword=" +
+          temp
       );
     }
     /*getSrc(bookId) {
