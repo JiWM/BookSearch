@@ -112,6 +112,7 @@ export default {
       });
     },*/
     async search() {
+      console.log(new Date());
       window.location.href = "/searchlist?query=" + this.query;
     },
     /*async search() {

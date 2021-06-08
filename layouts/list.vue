@@ -19,7 +19,7 @@
             <div class="flex justify-around bg-gray-200 p-3 rounded-lg">
               <input
                 type="text"
-                class="w-5/6"
+                class="w-11/12 text-2xl"
                 v-model="bonus_query"
                 v-on:keyup.enter="
                   addTag();
@@ -28,7 +28,7 @@
               />
               <button
                 v-on:click="
-                  addTa();
+                  addTag();
                   additionalSearch();
                 "
               >
@@ -54,21 +54,23 @@
             <v-list-item
               v-for="tag in tags"
               v-bind:key="tag.id"
-              class="bg-blue-100 bg-opacity-70"
+              class="bg-blue-100 bg-opacity-70 h-8"
             >
-              <v-list-item-title class="h-5">{{ tag }}</v-list-item-title>
+              <v-list-item-title class="">{{ tag }}</v-list-item-title>
               <img
                 src="../static/cancel.png"
-                width="6%"
-                height="60%"
-                v-on:click="deleteTag(tag)"
+                class="h-3 lg:h-4"
+                v-on:click="
+                  deleteTag(tag);
+                  additionalSearch();
+                "
               />
             </v-list-item>
           </v-list-item-group>
         </v-list>
       </v-navigation-drawer>
-      <v-card-text id="cardText">
-        <div class="p-8">
+      <v-card-text id="cardText" style="height:79.5vh" class="overflow-auto">
+        <div class="px-4">
           <div
             class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-5 gap-6 "
           >
@@ -78,10 +80,22 @@
               v-bind:key="book.id"
               style=""
             >
-            <!--'/book/'+book._id-->
+              <!--'/book/'+book._id-->
               <nuxt-link
                 :to="{
-                  path: '/book/'+book._id+'?title='+book._source.title+'&author='+book._source.author+'&genre='+book._source.genre+'&score='+book._score+'&search='+searchResult,
+                  path:
+                    '/book/' +
+                    book._id +
+                    '?title=' +
+                    book._source.title +
+                    '&author=' +
+                    book._source.author +
+                    '&genre=' +
+                    book._source.genre +
+                    '&score=' +
+                    book._source.avg_rating +
+                    '&search=' +
+                    searchResult
                 }"
                 class="flex flex-wrap content-between"
               >
@@ -114,22 +128,22 @@ import InstantSearch from "../components/vue-instant-search.vue";
 export default {
   mounted() {
     /*if (this.$route.params) {
+      console.log(this.$route.params);
       this.searchResult = this.$axios
-        .$get(
-          "http://172.16.101.206:5000/search?user_input=" +
-            this.$route.params.keyword
-        )
+        .$get(localhost + "/search?user_input=" + this.$route.params.keyword)
         .then(function(res) {
           return res;
         });
       this.tags.push(this.$route.params.keyword);
     } else {*/
+    const start = new Date();
+    console.log(this.$route.params);
     let temp1 = window.location.search;
     let temp2 = temp1.split("=");
     console.log("hahaha");
     this.query = temp2[1];
     this.searchResult = this.$axios
-      .$get("http://192.168.0.116:5000/search?user_input=" + this.query)
+      .$get(this.$store.state.localhost + "/search?user_input=" + this.query)
       .then(function(res) {
         return res;
       });
@@ -141,11 +155,17 @@ export default {
     };
 
     translatePromise();
+
+    const end = new Date();
+    const elapsedMSec = end.getTime() - start.getTime(); // 9004000
+    const elapsedSec = elapsedMSec / 1000;
+
+    console.log(elapsedSec);
   },
   data: () => ({
     drawer: false,
     group: null,
-    query: "Initial Value",
+    query: "",
     bonus_query: "",
     keywords: "",
     tags: [],
@@ -196,7 +216,7 @@ export default {
     },
     async search() {
       this.searchResult = await this.$axios.$get(
-        "http://192.168.0.116:5000/search?user_input=" + this.query
+        this.$store.state.localhost + "/search?user_input=" + this.query
       );
     },
     async additionalSearch() {
@@ -222,7 +242,8 @@ export default {
 
       this.searchResult = this.$axios
         .$get(
-          "http://192.168.0.116:5000/search?user_input=" +
+          this.$store.state.localhost +
+            "/search?user_input=" +
             this.query +
             "&keyword=" +
             temp
@@ -252,6 +273,17 @@ export default {
 </script>
 
 <style>
+.v-list-item--dense .v-list-item__title,
+.v-list-item--dense .v-list-item__subtitle,
+.v-list--dense .v-list-item .v-list-item__title,
+.v-list--dense .v-list-item .v-list-item__subtitle {
+  line-height: inherit;
+  font-size: 1.4em;
+}
+.v-list-item .v-list-item__title,
+.v-list-item .v-list-item__subtitle {
+  line-height: inherit;
+}
 .theme--light.v-app-bar.v-toolbar.v-sheet {
   background-color: white;
 }

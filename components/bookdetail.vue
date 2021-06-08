@@ -25,25 +25,51 @@
           <div id="contents" class="md:h-full">
             <table class="table-fixed w-full">
               <tr>
-                <td class="align-top text-xs md:text-sm lg:text-lg xl:text-xl w-1/4 break-all">TITLE</td>
-                <td class="text-left text-2xs md:text-sm lg:text-lg">{{ book_title }}</td>
+                <td
+                  class="align-top text-xs md:text-sm lg:text-lg xl:text-xl w-1/4 break-all"
+                >
+                  TITLE
+                </td>
+                <td class="text-left text-2xs md:text-sm lg:text-lg">
+                  {{ book_title }}
+                </td>
               </tr>
               <tr>
-                <td class="align-top text-xs md:text-sm lg:text-lg xl:text-xl w-1/4 break-all">AUTHOR</td>
-                <td class="text-left text-2xs md:text-sm lg:text-lg">{{ book_author }}</td>
+                <td
+                  class="align-top text-xs md:text-sm lg:text-lg xl:text-xl w-1/4 break-all"
+                >
+                  AUTHOR
+                </td>
+                <td class="text-left text-2xs md:text-sm lg:text-lg">
+                  {{ book_author }}
+                </td>
               </tr>
               <tr>
-                <td class="align-top text-xs md:text-sm lg:text-lg xl:text-xl w-1/4 break-all">GENRE</td>
-                <td class="text-left text-2xs md:text-sm lg:text-lg">{{ book_genre }}</td>
+                <td
+                  class="align-top text-xs md:text-sm lg:text-lg xl:text-xl w-1/4 break-all"
+                >
+                  GENRE
+                </td>
+                <td class="text-left text-2xs md:text-sm lg:text-lg">
+                  {{ book_genre }}
+                </td>
               </tr>
               <tr>
-                <td class="align-top text-xs md:text-sm lg:text-lg xl:text-xl w-1/4 break-all">SCORE</td>
-                <td class="text-left text-2xs md:text-sm lg:text-lg">{{ book_rate }}</td>
+                <td
+                  class="align-top text-xs md:text-sm lg:text-lg xl:text-xl w-1/4 break-all"
+                >
+                  SCORE
+                </td>
+                <td class="text-left text-2xs md:text-sm lg:text-lg">
+                  {{ book_rate }}
+                </td>
               </tr>
             </table>
 
             <!--button-->
-            <div class="absolute inset-x-0 bottom-0 grid grid-cols-2 w-full text-sm lg:text-xl text-white font-semibold">
+            <div
+              class="absolute inset-x-0 bottom-0 grid grid-cols-2 w-full text-sm lg:text-xl text-white font-semibold"
+            >
               <button
                 class="bg-gray-500 mr-5 lg:ml-5 lg:mr-10 p-5 max-w-md"
                 @click="toBuy = true"
@@ -60,7 +86,9 @@
           </div>
 
           <!--modal-->
-          <div class="absolute inset-x-0 bottom-0 grid grid-cols-2 text-xl lg:text-lg w-full">
+          <div
+            class="absolute inset-x-0 bottom-0 grid grid-cols-2 text-xl lg:text-lg w-full"
+          >
             <div>
               <modal
                 class="absolute top-5 ml-5"
@@ -106,23 +134,28 @@
 </template>
 
 <script>
-import modal from "./modal.vue"
-import { mapGetters } from 'vuex'
+import modal from "./modal.vue";
+import { mapGetters } from "vuex";
 
 export default {
-  
   mounted() {
-    console.log(this.$route.params.book);
-    if (this.$route.params.book) {
-      this.book_title = this.$route.params.book._source.title;
+    console.log(this.$route.params.book_id);
+    if (this.$route.params.book_id) {
+      var book = this.$axios.$get(
+        this.$store.state.localhost +
+          "/book_detail/" +
+          this.$route.params.book_id
+      );
+      console.log(book);
+      /*this.book_title = this.$route.params.book._source.title;
       this.book_author = this.$route.params.book._source.author;
-      this.book_rate = this.$route.params.book._score;
+      this.book_rate = this.$route.params.book._source.avg_rating;
       this.book_genre = this.$route.params.book._source.genre;
-      this.book_id = this.$route.params.book._id;
+      this.book_id = this.$route.params.book._id;*/
     }
   },
   computed: {
-      ...mapGetters(['loggedInUser','loggedInToken'])
+    ...mapGetters(["loggedInUser", "loggedInToken"])
   },
   data() {
     return {
@@ -139,25 +172,25 @@ export default {
     async goback() {
       await this.$router.back();
     },
-    
-    addBook(){
-    if (!this.$store.state.isAuth) {alert('please login')}
-    else{
-      this.toBookshelf = true
-      const token=this.loggedInToken
-      console.log('token:')
-      console.log(token)
-      var data={book_id:this.book_id, book_title:this.book_title}
-      const headers={Authorization: `${token}`}
-      this.$axios.post('http://172.16.101.206:5000/bookshelf', data,{
-        headers:headers
-        }).then((res) => {
-          console.log('addbook')
-        console.log(res)
-        }).catch((error) => {
-        console.error(error)
+
+    addBook() {
+      this.toBookshelf = true;
+      const token = this.loggedInToken;
+      console.log("token:");
+      console.log(token);
+      this.$axios
+        .post("bookshelf", {
+          data: { book_id: this.book_id, book_title: this.book_title },
+          headers: {
+            Authorization: `${token}`
+          }
         })
-    }
+        .then(res => {
+          console.log(res);
+        })
+        .catch(error => {
+          console.error(error);
+        });
     }
   },
   components: {
