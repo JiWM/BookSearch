@@ -125,8 +125,6 @@ import appHeader from "../components/appheader";
 import searchBar from "../components/searchbar";
 import InstantSearch from "../components/vue-instant-search.vue";
 
-var localhost = "http://192.168.0.116:5000";
-
 export default {
   mounted() {
     /*if (this.$route.params) {
@@ -144,7 +142,7 @@ export default {
     console.log("hahaha");
     this.query = temp2[1];
     this.searchResult = this.$axios
-      .$get(localhost + "/search?user_input=" + this.query)
+      .$get(this.$store.state.localhost + "/search?user_input=" + this.query)
       .then(function(res) {
         return res;
       });
@@ -211,7 +209,7 @@ export default {
     },
     async search() {
       this.searchResult = await this.$axios.$get(
-        localhost + "/search?user_input=" + this.query
+        this.$store.state.localhost + "/search?user_input=" + this.query
       );
     },
     async additionalSearch() {
@@ -237,7 +235,11 @@ export default {
 
       this.searchResult = this.$axios
         .$get(
-          localhost + "/search?user_input=" + this.query + "&keyword=" + temp
+          this.$store.state.localhost +
+            "/search?user_input=" +
+            this.query +
+            "&keyword=" +
+            temp
         )
         .then(function(res) {
           return res;
