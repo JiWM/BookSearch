@@ -43,7 +43,9 @@
             </table>
 
             <!--button-->
-            <div class="absolute inset-x-0 bottom-0 grid grid-cols-2 w-full text-sm lg:text-xl text-white font-semibold">
+            <div
+              class="absolute inset-x-0 bottom-0 grid grid-cols-2 w-full text-sm lg:text-xl text-white font-semibold"
+            >
               <button
                 class="bg-gray-500 mr-5 lg:ml-5 lg:mr-10 p-5 max-w-md"
                 @click="toBuy = true"
@@ -60,7 +62,9 @@
           </div>
 
           <!--modal-->
-          <div class="absolute inset-x-0 bottom-0 grid grid-cols-2 text-xl lg:text-lg w-full">
+          <div
+            class="absolute inset-x-0 bottom-0 grid grid-cols-2 text-xl lg:text-lg w-full"
+          >
             <div>
               <modal
                 class="absolute top-5 ml-5"
@@ -106,8 +110,8 @@
 </template>
 
 <script>
-import modal from "./modal.vue"
-import { mapGetters } from 'vuex'
+import modal from "./modal.vue";
+import { mapGetters } from "vuex";
 
 export default {
   mounted() {
@@ -115,13 +119,13 @@ export default {
     if (this.$route.params.book) {
       this.book_title = this.$route.params.book._source.title;
       this.book_author = this.$route.params.book._source.author;
-      this.book_rate = this.$route.params.book._score;
+      this.book_rate = this.$route.params.book._source.avg_rating;
       this.book_genre = this.$route.params.book._source.genre;
       this.book_id = this.$route.params.book._id;
     }
   },
   computed: {
-      ...mapGetters(['loggedInUser','loggedInToken'])
+    ...mapGetters(["loggedInUser", "loggedInToken"])
   },
   data() {
     return {
@@ -138,22 +142,25 @@ export default {
     async goback() {
       await this.$router.back();
     },
-    
-    addBook(){
-      this.toBookshelf = true
-      const token=this.loggedInToken
-      console.log('token:')
-      console.log(token)
-      this.$axios.post('bookshelf', {
-        data:{book_id:this.book_id, book_title:this.book_title},
-        headers:{
-          Authorization: `${token}`
-        }
-        }).then((res) => {
-        console.log(res)
-        }).catch((error) => {
-        console.error(error)
+
+    addBook() {
+      this.toBookshelf = true;
+      const token = this.loggedInToken;
+      console.log("token:");
+      console.log(token);
+      this.$axios
+        .post("bookshelf", {
+          data: { book_id: this.book_id, book_title: this.book_title },
+          headers: {
+            Authorization: `${token}`
+          }
         })
+        .then(res => {
+          console.log(res);
+        })
+        .catch(error => {
+          console.error(error);
+        });
     }
   },
   components: {

@@ -13,11 +13,12 @@
           v-on:keyup.enter="search"
         />
 
-        <img
-          src="../static/searchdark.svg"
-          class="object-contain w-5 float-right"
-          v-on:click="search"
-        />
+        <button v-on:click="search">
+          <img
+            src="../static/searchdark.svg"
+            class="object-contain w-5 float-right"
+          />
+        </button>
       </div>
     </div>
   </nav>
@@ -33,10 +34,6 @@ export default {
   },
   methods: {
     async search() {
-      this.searchResult = await this.$axios.$get(
-        "http://172.16.101.206:5000/search?user_input=" + this.query
-      );
-      console.log(this.searchResult);
       window.location.href = "/searchlist?query=" + this.query;
     }
   }

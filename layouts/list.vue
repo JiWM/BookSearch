@@ -19,7 +19,7 @@
             <div class="flex justify-around bg-gray-200 p-3 rounded-lg">
               <input
                 type="text"
-                class="w-5/6"
+                class="w-11/12 text-2xl"
                 v-model="bonus_query"
                 v-on:keyup.enter="
                   addTag();
@@ -28,7 +28,7 @@
               />
               <button
                 v-on:click="
-                  addTa();
+                  addTag();
                   additionalSearch();
                 "
               >
@@ -54,21 +54,23 @@
             <v-list-item
               v-for="tag in tags"
               v-bind:key="tag.id"
-              class="bg-blue-100 bg-opacity-70"
+              class="bg-blue-100 bg-opacity-70 h-8"
             >
-              <v-list-item-title class="h-5">{{ tag }}</v-list-item-title>
+              <v-list-item-title class="">{{ tag }}</v-list-item-title>
               <img
                 src="../static/cancel.png"
-                width="6%"
-                height="60%"
-                v-on:click="deleteTag(tag)"
+                class="h-3 lg:h-4"
+                v-on:click="
+                  deleteTag(tag);
+                  additionalSearch();
+                "
               />
             </v-list-item>
           </v-list-item-group>
         </v-list>
       </v-navigation-drawer>
-      <v-card-text id="cardText">
-        <div class="p-8">
+      <v-card-text id="cardText" style="height:79.5vh" class="overflow-auto">
+        <div class="px-4">
           <div
             class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-5 gap-6 "
           >
@@ -111,25 +113,26 @@ import appHeader from "../components/appheader";
 import searchBar from "../components/searchbar";
 import InstantSearch from "../components/vue-instant-search.vue";
 
+var localhost = "http://192.168.0.116:5000";
+
 export default {
   mounted() {
     /*if (this.$route.params) {
+      console.log(this.$route.params);
       this.searchResult = this.$axios
-        .$get(
-          "http://172.16.101.206:5000/search?user_input=" +
-            this.$route.params.keyword
-        )
+        .$get(localhost + "/search?user_input=" + this.$route.params.keyword)
         .then(function(res) {
           return res;
         });
       this.tags.push(this.$route.params.keyword);
     } else {*/
+    console.log(this.$route.params);
     let temp1 = window.location.search;
     let temp2 = temp1.split("=");
     console.log("hahaha");
     this.query = temp2[1];
     this.searchResult = this.$axios
-      .$get("http://172.16.101.206:5000/search?user_input=" + this.query)
+      .$get(localhost + "/search?user_input=" + this.query)
       .then(function(res) {
         return res;
       });
@@ -145,7 +148,7 @@ export default {
   data: () => ({
     drawer: false,
     group: null,
-    query: "Initial Value",
+    query: "",
     bonus_query: "",
     keywords: "",
     tags: [],
@@ -196,7 +199,7 @@ export default {
     },
     async search() {
       this.searchResult = await this.$axios.$get(
-        "http://172.16.101.206:5000/search?user_input=" + this.query
+        localhost + "/search?user_input=" + this.query
       );
     },
     async additionalSearch() {
@@ -222,10 +225,7 @@ export default {
 
       this.searchResult = this.$axios
         .$get(
-          "http://172.16.101.206:5000/search?user_input=" +
-            this.query +
-            "&keyword=" +
-            temp
+          localhost + "/search?user_input=" + this.query + "&keyword=" + temp
         )
         .then(function(res) {
           return res;
@@ -252,6 +252,17 @@ export default {
 </script>
 
 <style>
+.v-list-item--dense .v-list-item__title,
+.v-list-item--dense .v-list-item__subtitle,
+.v-list--dense .v-list-item .v-list-item__title,
+.v-list--dense .v-list-item .v-list-item__subtitle {
+  line-height: inherit;
+  font-size: 1.4em;
+}
+.v-list-item .v-list-item__title,
+.v-list-item .v-list-item__subtitle {
+  line-height: inherit;
+}
 .theme--light.v-app-bar.v-toolbar.v-sheet {
   background-color: white;
 }
