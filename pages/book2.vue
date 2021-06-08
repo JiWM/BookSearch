@@ -1,7 +1,8 @@
 <template>
   <div>
-    <bookDetail ></bookDetail>
-    <bookList class="bg-gray-200"></bookList>
+    <bookDetail></bookDetail>
+    <!--<bookList class="bg-gray-200"></bookList>-->
+    <div class="bg-gray-200"></div>
   </div>
 </template>
 
@@ -13,6 +14,6 @@ export default {
   components: {
     bookList: bookList,
     bookDetail: bookDetail
-  },
+  }
 };
 </script>

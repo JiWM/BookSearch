@@ -93,7 +93,7 @@
                     '&genre=' +
                     book._source.genre +
                     '&score=' +
-                    book._score +
+                    book._source.avg_rating +
                     '&search=' +
                     searchResult
                 }"
@@ -136,6 +136,7 @@ export default {
         });
       this.tags.push(this.$route.params.keyword);
     } else {*/
+    const start = new Date();
     console.log(this.$route.params);
     let temp1 = window.location.search;
     let temp2 = temp1.split("=");
@@ -154,6 +155,12 @@ export default {
     };
 
     translatePromise();
+
+    const end = new Date();
+    const elapsedMSec = end.getTime() - start.getTime(); // 9004000
+    const elapsedSec = elapsedMSec / 1000;
+
+    console.log(elapsedSec);
   },
   data: () => ({
     drawer: false,

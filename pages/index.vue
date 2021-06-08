@@ -29,14 +29,15 @@
           v-for="keyword in keywords.slice(num, num + 5)"
           v-bind:key="keyword.id"
         >
-          <nuxt-link :to="{ name: 'searchlist', params: { keyword: keyword } }">
+          <!--<nuxt-link
+            :to="{ name: 'searchlist', params: { keyword: keyword } }"
+            v-on:click="search(keyword)"
+          >
             {{ keyword }}
-          </nuxt-link>
-          <!--
+          </nuxt-link>-->
           <button v-on:click="searchKeyword(keyword)">
             {{ keyword }}
           </button>
-          -->
         </div>
       </div>
     </div>
@@ -111,6 +112,7 @@ export default {
       });
     },*/
     async search() {
+      console.log(new Date());
       window.location.href = "/searchlist?query=" + this.query;
     },
     /*async search() {

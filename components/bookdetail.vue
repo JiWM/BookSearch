@@ -139,13 +139,19 @@ import { mapGetters } from "vuex";
 
 export default {
   mounted() {
-    console.log(this.$route.params.book);
-    if (this.$route.params.book) {
-      this.book_title = this.$route.params.book._source.title;
+    console.log(this.$route.params.book_id);
+    if (this.$route.params.book_id) {
+      var book = this.$axios.$get(
+        this.$store.state.localhost +
+          "/book_detail/" +
+          this.$route.params.book_id
+      );
+      console.log(book);
+      /*this.book_title = this.$route.params.book._source.title;
       this.book_author = this.$route.params.book._source.author;
       this.book_rate = this.$route.params.book._source.avg_rating;
       this.book_genre = this.$route.params.book._source.genre;
-      this.book_id = this.$route.params.book._id;
+      this.book_id = this.$route.params.book._id;*/
     }
   },
   computed: {
