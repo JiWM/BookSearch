@@ -8,15 +8,15 @@
 
       <div>
         <div class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-5 gap-3">
-          <div class="mx-auto w-40 p-2 border border-gray-300" v-for="book in myBooks" v-bind:key="book._id">
-            <nuxt-link :to="{name: 'book', params: { book: book }}">
+          <div class="relative mx-auto w-40 p-2 border border-gray-300" v-for="book in myBooks" v-bind:key="book[0]">
+            <nuxt-link :to="{name: 'book2', params: { book: book }}">
 
             <!--:src="require('../static/book_cover/' + book.id + '.jpg')"-->
-            <img :src="require('../static/book_cover/' + book._id + '.jpg')">
+            <img :src="require('../static/book_cover/' + book[0] + '.jpg')">
 
-            <p class="text-center text-sm p-2" v-bind="book">{{book._source.title}}</p>
+            <p class="text-center text-sm p-2 mb-4" >{{book[1]}}</p>
             </nuxt-link>
-            <button @click="deleteBook" class="bg-gray-500 rounded text-sm text-white pl-2 pr-2">삭제</button>
+            <button @click="deleteBook(book[0])" class="absolute right-0 -bottom-0 m-2 bg-gray-500 rounded text-sm text-white pl-2 pr-2">삭제</button>
           </div>
           <div class="mx-auto w-40 p-2 bg-gray-300">
           </div>
@@ -40,12 +40,6 @@ export default {
   data() {
     return {
       myBooks: [
-      {
-        _id: "0",
-        _source: {
-          title: ""
-        }
-      }
     ]
     }
   },
@@ -66,33 +60,34 @@ export default {
       const token=this.loggedInToken
       console.log('token:')
       console.log(token)
-      this.$axios.get('bookshelf', {
+      this.$axios.get('http://192.168.0.116:5000/bookshelf', {
         headers:{
           Authorization: `${token}`
         }
         }).then((res) => {
         console.log('bookshelf')
         console.log(res)
-        console.log(res.data)
-        var getlist=res.data
-        for (var key in obj) {
-          this.myBooks[key]=getlist[key]
+        var booklist=res.data
+        for (var key in booklist) {
+          this.myBooks.push(booklist[key])
         }
+        console.log(myBooks)
         }).catch((error) => {
         console.error(error)
         })
     },
-    deleteBook(){
+    deleteBook(id){
       const token=this.loggedInToken
       console.log('token:')
       console.log(token)
-      this.$axios.post('bookshelf', {
-        data:{book_id:this.book_id},
+      this.$axios.post('http://192.168.0.116:5000/bookshelf',
+        {data:{book_id:id}},{
         headers:{
           Authorization: `${token}`
         }
         }).then((res) => {
         console.log(res)
+        this.$router.go();
         }).catch((error) => {
         console.error(error)
         })

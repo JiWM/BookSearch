@@ -1,0 +1,72 @@
+[
+  {
+    "name": "book2",
+    "path": "/book2",
+    "component": "C:\\\\개발\\\\Vue\\\\nuxt\\\\3\\\\BookSearch\\\\pages\\\\book2.vue",
+    "chunkName": "pages/book2",
+    "_name": "_56697c05"
+  },
+  {
+    "name": "bookshelf",
+    "path": "/bookshelf",
+    "component": "C:\\\\개발\\\\Vue\\\\nuxt\\\\3\\\\BookSearch\\\\pages\\\\bookshelf.vue",
+    "chunkName": "pages/bookshelf",
+    "_name": "_6975887d"
+  },
+  {
+    "name": "index copy",
+    "path": "/index%20copy",
+    "component": "C:\\\\개발\\\\Vue\\\\nuxt\\\\3\\\\BookSearch\\\\pages\\\\index copy.vue",
+    "chunkName": "pages/index copy",
+    "_name": "_27fbb217"
+  },
+  {
+    "name": "lalala",
+    "path": "/lalala",
+    "component": "C:\\\\개발\\\\Vue\\\\nuxt\\\\3\\\\BookSearch\\\\pages\\\\lalala.vue",
+    "chunkName": "pages/lalala",
+    "_name": "_02eb94b3"
+  },
+  {
+    "name": "login",
+    "path": "/login",
+    "component": "C:\\\\개발\\\\Vue\\\\nuxt\\\\3\\\\BookSearch\\\\pages\\\\login.vue",
+    "chunkName": "pages/login",
+    "_name": "_79c7c905"
+  },
+  {
+    "name": "myaccount",
+    "path": "/myaccount",
+    "component": "C:\\\\개발\\\\Vue\\\\nuxt\\\\3\\\\BookSearch\\\\pages\\\\myaccount.vue",
+    "chunkName": "pages/myaccount",
+    "_name": "_14adee9d"
+  },
+  {
+    "name": "searchlist",
+    "path": "/searchlist",
+    "component": "C:\\\\개발\\\\Vue\\\\nuxt\\\\3\\\\BookSearch\\\\pages\\\\searchlist.vue",
+    "chunkName": "pages/searchlist",
+    "_name": "_2828b0da"
+  },
+  {
+    "name": "signup",
+    "path": "/signup",
+    "component": "C:\\\\개발\\\\Vue\\\\nuxt\\\\3\\\\BookSearch\\\\pages\\\\signup.vue",
+    "chunkName": "pages/signup",
+    "_name": "_0b8b44ac"
+  },
+  {
+    "name": "book-id",
+    "path": "/book/:id?",
+    "component": "C:\\\\개발\\\\Vue\\\\nuxt\\\\3\\\\BookSearch\\\\pages\\\\book\\\\_id.vue",
+    "chunkName": "pages/book/_id",
+    "_name": "_13bd4ee6"
+  },
+  {
+    "name": "index",
+    "path": "/",
+    "component": "C:\\\\개발\\\\Vue\\\\nuxt\\\\3\\\\BookSearch\\\\pages\\\\index.vue",
+    "chunkName": "pages/index",
+    "_name": "_9fbfb424"
+  }
+]

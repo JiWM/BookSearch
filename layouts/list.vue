@@ -80,10 +80,22 @@
               v-bind:key="book.id"
               style=""
             >
+              <!--'/book/'+book._id-->
               <nuxt-link
                 :to="{
-                  name: 'book',
-                  params: { book: book, booklist: searchResult }
+                  path:
+                    '/book/' +
+                    book._id +
+                    '?title=' +
+                    book._source.title +
+                    '&author=' +
+                    book._source.author +
+                    '&genre=' +
+                    book._source.genre +
+                    '&score=' +
+                    book._score +
+                    '&search=' +
+                    searchResult
                 }"
                 class="flex flex-wrap content-between"
               >
