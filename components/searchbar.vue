@@ -1,6 +1,8 @@
 <template>
-  <nav class="md:h-16 sm:h-12 lg:h-20 w-full grid bg-customYel-200 justify-items-center flex items-center">
-    <div class="flex w-1/2 h-3/4 p-2 bg-white border-1 rounded-md border-gray-400">
+  <nav
+    class="md:h-16 sm:h-12 lg:h-20 w-full grid bg-customYel-200 justify-items-center flex items-center"
+  >
+    <div class="flex h-3/4 p-2 bg-white border-1 rounded-md border-gray-400">
       <div class="justify-center flex">
         <input
           id="query"
@@ -18,7 +20,6 @@
         />
       </div>
     </div>
-
   </nav>
 </template>
 

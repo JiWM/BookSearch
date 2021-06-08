@@ -60,7 +60,7 @@ export default {
       const token=this.loggedInToken
       console.log('token:')
       console.log(token)
-      this.$axios.get('http://172.16.101.206:5000/bookshelf', {
+      this.$axios.get('http://192.168.0.116:5000/bookshelf', {
         headers:{
           Authorization: `${token}`
         }
@@ -80,7 +80,7 @@ export default {
       const token=this.loggedInToken
       console.log('token:')
       console.log(token)
-      this.$axios.post('http://172.16.101.206:5000/bookshelf',
+      this.$axios.post('http://192.168.0.116:5000/bookshelf',
         {data:{book_id:id}},{
         headers:{
           Authorization: `${token}`

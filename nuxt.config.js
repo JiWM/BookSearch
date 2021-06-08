@@ -15,7 +15,6 @@ export default {
         link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }]
     },
 
-
     // Global CSS: https://go.nuxtjs.dev/config-css
     css: ["~assets/css/tailwind.css"],
 
@@ -49,11 +48,11 @@ export default {
 
     axios: {
         proxy: true, //default - "false",
-        baseurl: "http://172.16.101.206:5000/"
+        baseurl: "http://172.16.101.206/"
     },
     proxy: {
         "/search/": {
-            target: "http://172.16.101.206:5000/",
+            target: "http://172.16.101.206/",
             pathRewrite: { "^/search/": "" },
             changeOrigin: true
         }
@@ -65,11 +64,9 @@ export default {
     build: {
         postcss: {
             plugins: {
-                tailwindcss: path.resolve(__dirname, './tailwind.config.js'),
-            },
+                tailwindcss: path.resolve(__dirname, "./tailwind.config.js")
+            }
         },
-        extend(config, ctx) {},
-    },
-
-
+        extend(config, ctx) {}
+    }
 };
