@@ -28,7 +28,7 @@ export default {
   methods: {
     async signup() {
       try {        
-        let signup = await this.$axios.post('http://172.16.101.206:5000/signup', {
+        let signup = await this.$axios.post('http://13.209.42.183:5000/signup', {
             id:this.id,
             name: this.username,
             email: this.email,
@@ -36,7 +36,7 @@ export default {
         })
         console.log(signup)
 
-        await this.$axios.post('http://172.16.101.206:5000/login', {
+        await this.$axios.post('http://13.209.42.183:5000/login', {
             id:this.id,
             password: this.password
         }).then((response) => {

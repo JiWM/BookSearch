@@ -88,12 +88,12 @@
                 @close="toBookshelf = false"
               >
                 <div slot="body" class="text-black text-base pt-3 text-center">
-                  <p>책장으로 이동하시겠습니까?</p>
+                  <p>선택하신 도서가 책장에 담겼습니다.</p>
                   <nuxt-link to="/bookshelf">
                     <button
                       class="text-xs mt-3 p-1 pl-3 pr-3 ring-1 ring-gray-600 rounded-sm bg-gray-200"
                     >
-                      확인
+                      책장 보기
                     </button>
                   </nuxt-link>
                 </div>
@@ -168,7 +168,7 @@ export default {
       console.log(token)
       var data={book_id:this.book_id, book_title:this.book_title}
       const headers={Authorization: `${token}`}
-      this.$axios.post('http://192.168.0.116:5000/bookshelf', data,{
+      this.$axios.post('http://13.209.42.183:5000/bookshelf', data,{
         headers:headers
         }).then((res) => {
           console.log('addbook')
